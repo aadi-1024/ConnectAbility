@@ -11,6 +11,6 @@ func addRoutes(e *echo.Echo) {
 		return c.String(http.StatusOK, "pong")
 	})
 	e.POST("/register", handlers.RegisterUserHandler(app.Db))
-
+	e.POST("/login", handlers.LoginUserHandler(app.Db, app.JwtSecret, app.JwtExpiry))
 	e.Static("/static", "static/")
 }

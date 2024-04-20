@@ -8,6 +8,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"os"
+	"time"
 )
 
 func RegisterUserHandler(db *database.Database) echo.HandlerFunc {
@@ -82,6 +83,35 @@ func RegisterUserHandler(db *database.Database) echo.HandlerFunc {
 
 		return c.JSON(http.StatusOK, models.JsonResponse{
 			Message: "successful",
+		})
+	}
+}
+
+func LoginUserHandler(db *database.Database, secret []byte, exp time.Duration) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		email := c.FormValue("email")
+		password := c.FormValue("password")
+
+		usr := models.User{Email: email, Password: password}
+		id, err := db.LoginUser(&usr)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, models.JsonResponse{
+				Message: "invalid credentials",
+				Content: err.Error(),
+			})
+		}
+
+		token, err := util.GenerateJwtToken(id, secret, exp)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, models.JsonResponse{
+				Message: "something went wrong",
+				Content: err.Error(),
+			})
+		}
+
+		return c.JSON(http.StatusOK, models.JsonResponse{
+			Message: "successful",
+			Content: token,
 		})
 	}
 }
