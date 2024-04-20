@@ -5,7 +5,7 @@ CREATE TABLE Teams (
     Id SERIAL PRIMARY KEY,
     Owner_Id INT NOT NULL,
     Name VARCHAR(64) NOT NULL,
-    CREATION_TIME TIMESTAMP NOT NULL
+    Creation_Time TIMESTAMP NOT NULL
 );
 -- +goose StatementEnd
 
