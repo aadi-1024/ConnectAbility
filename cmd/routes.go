@@ -22,5 +22,10 @@ func addRoutes(e *echo.Echo) {
 	user := e.Group("/user", JwtMiddleware)
 	user.POST("/invite", handlers.InviteHandler(app.Db))
 	user.POST("/resolve-invite", handlers.ResolveHandler(app.Db))
+
+	chat := e.Group("/chat", JwtMiddleware)
+	chat.POST("/new-chat", handlers.NewChat(app.Db))
+	chat.POST("/send-msg", handlers.SendMessage(app.Db))
+	chat.GET("/messages/:id", handlers.GetMessages(app.Db))
 	e.Static("/static", "static/")
 }
