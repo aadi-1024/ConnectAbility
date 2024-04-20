@@ -6,6 +6,7 @@ CREATE TABLE Team_Members (
     Member_Id INT,
     Joining_Date TIMESTAMP NOT NULL,
     Leaving_Date TIMESTAMP,
+    PRIMARY KEY (Team_Id, Member_Id),
     FOREIGN KEY (Team_Id) REFERENCES Teams(Id),
     FOREIGN KEY (Member_Id) REFERENCES Users(Id)
 );

@@ -6,12 +6,12 @@ import (
 )
 
 func (d *Database) RegisterUser(user *models.User) error {
-	return d.Conn.Create(user).Error
+	return d.conn.Create(user).Error
 }
 
 func (d *Database) LoginUser(user *models.User) (int, error) {
 	userFetch := models.User{}
-	res := d.Conn.Table("users").Where("email = ?", user.Email).Select("id", "password").Scan(&userFetch)
+	res := d.conn.Table("users").Where("email = ?", user.Email).Select("id", "password").Scan(&userFetch)
 	if res.Error != nil {
 		return 0, nil
 	}

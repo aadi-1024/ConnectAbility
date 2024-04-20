@@ -19,5 +19,8 @@ func addRoutes(e *echo.Echo) {
 	teams.GET("/get", handlers.GetTeams(app.Db))
 	teams.GET("/get/:id", handlers.GetTeamById(app.Db))
 
+	user := e.Group("/user", JwtMiddleware)
+	user.POST("/invite", handlers.InviteHandler(app.Db))
+	user.POST("/resolve-invite", handlers.ResolveHandler(app.Db))
 	e.Static("/static", "static/")
 }

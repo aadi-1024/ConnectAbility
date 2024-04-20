@@ -6,7 +6,7 @@ import (
 )
 
 type Database struct {
-	Conn *gorm.DB
+	conn *gorm.DB
 }
 
 func InitDb(dsn string) (*Database, error) {
@@ -15,6 +15,6 @@ func InitDb(dsn string) (*Database, error) {
 		return nil, err
 	}
 	return &Database{
-		Conn: conn,
+		conn: conn,
 	}, err
 }

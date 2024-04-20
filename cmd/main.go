@@ -11,7 +11,7 @@ var app = &Config{}
 
 func main() {
 	app.JwtSecret = []byte("secret")
-	app.JwtExpiry = 30 * time.Minute
+	app.JwtExpiry = 24 * time.Hour
 	d, err := database.InitDb("postgres://postgres:password@localhost:5432/connectability")
 	if err != nil {
 		log.Fatalln(err)
