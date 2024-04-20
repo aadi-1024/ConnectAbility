@@ -4,6 +4,7 @@ SELECT 'up SQL query';
 CREATE TABLE users (
     Id SERIAL PRIMARY KEY,
     Email VARCHAR(40) UNIQUE,
+    Password VARCHAR(64) NOT NULL,
     Phone_No VARCHAR(15) UNIQUE,
     First_name VARCHAR(48) NOT NULL,
     Last_Name VARCHAR(48),
